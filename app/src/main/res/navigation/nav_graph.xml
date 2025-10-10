@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentoPrincipal">
+
+    <fragment
+        android:id="@+id/fragmentoPrincipal"
+        android:name="com.example.tarearecetas.FragmentoPrincipal"
+        android:label="fragment_fragmento_principal"
+        tools:layout="@layout/fragment_fragmento_principal" >
+        <action
+            android:id="@+id/action_fragmentoPrincipal_to_fragmentoListadoRecetas"
+            app:destination="@id/fragmentoListadoRecetas" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentoListadoRecetas"
+        android:name="com.example.tarearecetas.FragmentoListadoRecetas"
+        android:label="fragment_listado_recetas"
+        tools:layout="@layout/fragment_fragmento_listado_recetas" >
+        <action
+            android:id="@+id/action_fragmentoListadoRecetas_to_fragmentoPrincipal"
+            app:destination="@id/fragmentoPrincipal" />
+    </fragment>
+
+</navigation>
