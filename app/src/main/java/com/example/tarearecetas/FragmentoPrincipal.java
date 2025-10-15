@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SearchView;
 
 public class FragmentoPrincipal extends Fragment {
 
@@ -27,18 +30,33 @@ public class FragmentoPrincipal extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1. Encontrar el botón "Buscar" usando su ID del archivo XML.
+        RadioGroup radioGroup = view.findViewById(R.id.opciones_radio_group);
+        SearchView searchView = view.findViewById(R.id.search_buscar);
         Button buscarButton = view.findViewById(R.id.enter_button);
 
-        // 2. Establecer un OnClickListener para reaccionar al clic.
         buscarButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                String dificultad = null;
+                if (selectedId != -1) {
+                    RadioButton selectedRadioButton = view.findViewById(selectedId);
+                    String textoDificultad = selectedRadioButton.getText().toString();
+                    if (textoDificultad.equalsIgnoreCase("Medio")) {
+                        dificultad = "Media";
+                    } else {
+                        dificultad = textoDificultad;
+                    }
+                }
 
-                // 4. Usar la acción definida en nav_graph.xml para navegar al siguiente fragmento.
-                navController.navigate(R.id.action_fragmentoPrincipal_to_fragmentoListadoRecetas);
+                String ingrediente = searchView.getQuery().toString();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("dificultad", dificultad);
+                bundle.putString("ingrediente", ingrediente);
+
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_fragmentoPrincipal_to_fragmentoListadoRecetas, bundle);
             }
         });
     }

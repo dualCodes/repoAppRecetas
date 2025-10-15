@@ -23,6 +23,16 @@
         <action
             android:id="@+id/action_fragmentoListadoRecetas_to_fragmentoPrincipal"
             app:destination="@id/fragmentoPrincipal" />
+        <argument
+            android:name="dificultad"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="ingrediente"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>

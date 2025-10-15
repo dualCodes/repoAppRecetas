@@ -1,58 +1,28 @@
 package com.example.tarearecetas;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentoListadoRecetas#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentoListadoRecetas extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentoListadoRecetas() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentoListadoRecetas.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentoListadoRecetas newInstance(String param1, String param2) {
-        FragmentoListadoRecetas fragment = new FragmentoListadoRecetas();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -60,5 +30,101 @@ public class FragmentoListadoRecetas extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragmento_listado_recetas, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String dificultad = getArguments() != null ? getArguments().getString("dificultad") : null;
+        String ingrediente = getArguments() != null ? getArguments().getString("ingrediente") : null;
+
+        List<Receta> listaRecetas = parseRecetas();
+        List<Receta> recetasFiltradas = filtrarRecetas(listaRecetas, dificultad, ingrediente);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecetaAdapter recetaAdapter = new RecetaAdapter(recetasFiltradas);
+        recyclerView.setAdapter(recetaAdapter);
+
+        Button btnVolver = view.findViewById(R.id.button_volver);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_fragmentoListadoRecetas_to_fragmentoPrincipal);
+            }
+        });
+    }
+
+    private List<Receta> filtrarRecetas(List<Receta> recetas, String dificultad, String ingrediente) {
+        List<Receta> recetasFiltradas = new ArrayList<>(recetas);
+
+        if (dificultad != null && !dificultad.isEmpty()) {
+            recetasFiltradas = recetasFiltradas.stream()
+                    .filter(r -> r.getDificultad().equalsIgnoreCase(dificultad))
+                    .collect(Collectors.toList());
+        }
+
+        if (ingrediente != null && !ingrediente.isEmpty()) {
+            recetasFiltradas = recetasFiltradas.stream()
+                    .filter(r -> r.getIngredientes().stream().anyMatch(i -> i.equalsIgnoreCase(ingrediente)))
+                    .collect(Collectors.toList());
+        }
+
+        return recetasFiltradas;
+    }
+
+    private List<Receta> parseRecetas() {
+        List<Receta> recetas = new ArrayList<>();
+        XmlPullParser parser = getResources().getXml(R.xml.recetas);
+        try {
+            int eventType = parser.getEventType();
+            Receta currentReceta = null;
+            List<String> currentIngredientes = null;
+            String text = "";
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String tagName = parser.getName();
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        if ("receta".equalsIgnoreCase(tagName)) {
+                            currentReceta = new Receta("", "", "", 0, new ArrayList<>());
+                            currentIngredientes = new ArrayList<>();
+                        }
+                        break;
+
+                    case XmlPullParser.TEXT:
+                        text = parser.getText();
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        if (currentReceta != null) {
+                            if ("nombre".equalsIgnoreCase(tagName)) {
+                                currentReceta.setNombre(text);
+                            } else if ("categoria".equalsIgnoreCase(tagName)) {
+                                currentReceta.setCategoria(text);
+                            } else if ("dificultad".equalsIgnoreCase(tagName)) {
+                                currentReceta.setDificultad(text);
+                            } else if ("tiempo".equalsIgnoreCase(tagName)) {
+                                currentReceta.setTiempo(Integer.parseInt(text));
+                            } else if ("ingrediente".equalsIgnoreCase(tagName)) {
+                                if (currentIngredientes != null) {
+                                    currentIngredientes.add(text);
+                                }
+                            } else if ("ingredientes".equalsIgnoreCase(tagName)) {
+                                currentReceta.setIngredientes(currentIngredientes);
+                            } else if ("receta".equalsIgnoreCase(tagName)) {
+                                recetas.add(currentReceta);
+                            }
+                        }
+                        break;
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+        return recetas;
     }
 }

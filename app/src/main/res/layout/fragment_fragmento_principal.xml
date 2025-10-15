@@ -54,7 +54,7 @@
         android:text="Buscar por ingredientes"
         app:layout_constraintStart_toStartOf="parent"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintTop_toBottomOf="@+id/opciones_radio_group" />
+        app:layout_constraintTop_toBottomOf="@id/opciones_radio_group" />
 
     <SearchView
         android:id="@+id/search_buscar"

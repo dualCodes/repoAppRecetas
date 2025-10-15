@@ -1,0 +1,122 @@
+<recetario>
+    <receta>
+        <nombre>Paella Valenciana</nombre>
+        <categoria>Arroz</categoria>
+        <dificultad>Media</dificultad>
+        <tiempo>60</tiempo>
+        <ingredientes>
+            <ingrediente>Arroz</ingrediente>
+            <ingrediente>Pollo</ingrediente>
+            <ingrediente>Judías verdes</ingrediente>
+            <ingrediente>Tomate</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Tortilla de Patatas</nombre>
+        <categoria>Huevos</categoria>
+        <dificultad>Fácil</dificultad>
+        <tiempo>25</tiempo>
+        <ingredientes>
+            <ingrediente>Patatas</ingrediente>
+            <ingrediente>Huevos</ingrediente>
+            <ingrediente>Cebolla</ingrediente>
+            <ingrediente>Aceite de oliva</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Gazpacho Andaluz</nombre>
+        <categoria>Sopas frías</categoria>
+        <dificultad>Fácil</dificultad>
+        <tiempo>15</tiempo>
+        <ingredientes>
+            <ingrediente>Tomates</ingrediente>
+            <ingrediente>Pepino</ingrediente>
+            <ingrediente>Pimiento verde</ingrediente>
+            <ingrediente>Aceite de oliva</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Pollo al Curry</nombre>
+        <categoria>Carnes</categoria>
+        <dificultad>Media</dificultad>
+        <tiempo>40</tiempo>
+        <ingredientes>
+            <ingrediente>Pollo</ingrediente>
+            <ingrediente>Curry</ingrediente>
+            <ingrediente>Nata</ingrediente>
+            <ingrediente>Cebolla</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Lasaña de Verduras</nombre>
+        <categoria>Vegetariana</categoria>
+        <dificultad>Media</dificultad>
+        <tiempo>50</tiempo>
+        <ingredientes>
+            <ingrediente>Pasta para lasaña</ingrediente>
+            <ingrediente>Berenjena</ingrediente>
+            <ingrediente>Calabacín</ingrediente>
+            <ingrediente>Queso</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Crema de Calabaza</nombre>
+        <categoria>Cremas</categoria>
+        <dificultad>Fácil</dificultad>
+        <tiempo>30</tiempo>
+        <ingredientes>
+            <ingrediente>Calabaza</ingrediente>
+            <ingrediente>Cebolla</ingrediente>
+            <ingrediente>Patata</ingrediente>
+            <ingrediente>Caldo de verduras</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Ensalada César</nombre>
+        <categoria>Ensaladas</categoria>
+        <dificultad>Fácil</dificultad>
+        <tiempo>20</tiempo>
+        <ingredientes>
+            <ingrediente>Lechuga romana</ingrediente>
+            <ingrediente>Pollo</ingrediente>
+            <ingrediente>Queso parmesano</ingrediente>
+            <ingrediente>Salsa César</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Pizza Margarita</nombre>
+        <categoria>Masas</categoria>
+        <dificultad>Media</dificultad>
+        <tiempo>35</tiempo>
+        <ingredientes>
+            <ingrediente>Masa de pizza</ingrediente>
+            <ingrediente>Tomate</ingrediente>
+            <ingrediente>Mozzarella</ingrediente>
+            <ingrediente>Albahaca</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Brownie de Chocolate</nombre>
+        <categoria>Postres</categoria>
+        <dificultad>Media</dificultad>
+        <tiempo>45</tiempo>
+        <ingredientes>
+            <ingrediente>Chocolate negro</ingrediente>
+            <ingrediente>Harina</ingrediente>
+            <ingrediente>Mantequilla</ingrediente>
+            <ingrediente>Huevos</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>Salmón al Horno</nombre>
+        <categoria>Pescado</categoria>
+        <dificultad>Fácil</dificultad>
+        <tiempo>25</tiempo>
+        <ingredientes>
+            <ingrediente>Salmón</ingrediente>
+            <ingrediente>Limón</ingrediente>
+            <ingrediente>Aceite de oliva</ingrediente>
+            <ingrediente>Eneldo</ingrediente>
+        </ingredientes>
+    </receta>
+</recetario>
